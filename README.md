@@ -6,6 +6,20 @@
 
 ---
 
+### Integrantes del Equipo de Investigación
+
+| No. | Apellido | Nombre | Carnet |
+| :---: | :--- | :--- | :---: |
+| 1 | Ruiz Hernández | Edgar Antonio | RH201851 |
+| 2 | Henriquez Vasquez | Axel Francisco | HV230423 |
+| 3 | Varela Linares | Marjorie Daniela | VL261354 |
+| 4 | Ramirez Torres | Eduardo Alfredo | RT240549 |
+| 5 | Azucena Ayala | Carlos Josue | AA260854 |
+| 6 | Ayala Palacios | Marcos Ezequiel | AP260351 |
+| 7 | Henriquez Ponce | Diego Noel | HP160046 |
+
+---
+
 ## 1. Descripción del Proyecto
 
 **Weather Desk** es una herramienta de escritorio empresarial desarrollada en C# (Windows Forms) que permite a los usuarios consultar información meteorológica actualizada en tiempo real consumiendo la API REST pública de **Open-Meteo** de forma totalmente asíncrona (`async/await`). 
@@ -110,21 +124,3 @@ Se seleccionó **Open-Meteo** debido a que proporciona acceso público, gratuito
 # Ejecutar el binario generado
 & ".\InvestigaciónAplicadaDSP404_WF\bin\Debug\InvestigaciónAplicadaDSP404_WF.exe"
 ```
-
----
-
-## 7. Preparación para la Defensa Individual (20%)
-
-Preguntas técnicas clave evaluadas por el docente y sus fundamentos:
-
-1. **¿Por qué se debe usar `async/await` al invocar servicios web en Windows Forms?**  
-   *Respuesta:* Windows Forms ejecuta la interfaz de usuario en un único hilo principal (*UI Thread*). Si se realiza una llamada HTTP sincrónica (o usando `.Result`/`.Wait()`), el hilo de la interfaz se bloquea esperando la respuesta del servidor, provocando que la ventana quede congelada (*"No responde"*). Al usar `async/await`, el hilo de UI queda liberado para redibujar controles y responder al usuario mientras la petición I/O se procesa en segundo plano.
-
-2. **¿Por qué se implementó `HttpClient` como una instancia estática única (Singleton)?**  
-   *Respuesta:* Crear una nueva instancia de `HttpClient` con cada solicitud dentro de un bloque `using` provoca el agotamiento de sockets (*socket exhaustion*) a nivel de sistema operativo. Aunque el objeto se destruya en C#, los sockets TCP subyacentes permanecen retenidos durante varios minutos en estado `TIME_WAIT`. Una instancia compartida y reutilizable optimiza el uso de conexiones y recursos del sistema.
-
-3. **¿Cómo se garantiza la persistencia local de favoritos con colecciones genéricas?**  
-   *Respuesta:* Se emplea la colección genérica `List<FavoriteWeatherRecord>`. Al iniciar la aplicación (`Form_Load`), el repositorio lee asíncronamente el archivo CSV y carga los registros en memoria. Cuando el usuario guarda o elimina un favorito, la lista se actualiza y se sincroniza en el archivo físico en formato delimitado por comas con codificación UTF-8.
-
-4. **¿Por qué la arquitectura utiliza interfaces (`IWeatherApiService`, `IFavoriteRepository`)?**  
-   *Respuesta:* En cumplimiento con el principio de Inversión de Dependencias (DIP de SOLID), la interfaz gráfica no debe acoplarse rígidamente a implementaciones concretas. Esto permite sustituir el servicio real por un doble de prueba (*mock*) para pruebas unitarias sin depender de la conexión a internet y facilita cambiar el motor de almacenamiento (por ejemplo, de CSV a SQLite) sin tocar el código de la UI.

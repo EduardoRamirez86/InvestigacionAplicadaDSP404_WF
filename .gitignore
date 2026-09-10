@@ -18,3 +18,7 @@ project.assets.json
 ## Office / Temp
 ~$*
 *.tmp
+
+## Private notes (no versionar)
+DEFENSA_INDIVIDUAL.md
+*DEFENSA*.md
