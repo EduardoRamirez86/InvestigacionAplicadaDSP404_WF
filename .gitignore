@@ -1,0 +1,20 @@
+## Visual Studio cache & user-specific files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Bb]in/
+[Oo]bj/
+
+## NuGet
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.assets.json
+
+## Office / Temp
+~$*
+*.tmp
